@@ -9,13 +9,18 @@ server.use(express.urlencoded({ extended: true }));
 server.use(cors());
 
 server.get("/", (req, res) => {
-  return res.status(200).json({
-    message: "Thank you for visiting this website",
-  });
+  try {
+    return res.status(200).json({
+        message: "Thank you for visiting this website",
+      });
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 server.get("/barChart", (req, res) => {
-  const data = [];
+  try {
+    const data = [];
   const week = ["S","M","T","W","T","F","S"]
   for (let i = 1; i <= 7; i++) {
     const obj = {
@@ -27,29 +32,33 @@ server.get("/barChart", (req, res) => {
   }
 
   return res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 server.get("/lineChart", (req, res) => {
-  const income = [];
-  for (let i = 1; i <= 16; i++) {
-    income.push(Math.floor(Math.random() * 1000));
-  }
-
-  const data = [];
+  
+  try {
+    const data = [];
 
   for (let i = 1; i <= 16; i++) {
     const obj = {
       name: `Nov ${i}`,
-      income: income[i - 1],
+      income: Math.floor(Math.random() * 1000),
     };
     data.push(obj);
   }
 
   return res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 server.get("/recent", (req, res) => {
-  const name = ["Google Pay", "Amazon Pay", "PhonePay", "Twitter Pay"];
+  try {
+    const name = ["Google Pay", "Amazon Pay", "PhonePay", "Twitter Pay"];
   const month = [
     "Jan",
     "Feb",
@@ -78,6 +87,9 @@ server.get("/recent", (req, res) => {
   }
 
   return res.status(200).send(data);
+  } catch (error) {
+    console.log(error)
+  }
 });
 
 server.listen(Port, () => {
